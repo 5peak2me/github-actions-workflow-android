@@ -16,6 +16,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    jacoco
 }
 
 android {
@@ -52,11 +53,53 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+tasks.withType<JacocoReport> {
+    reports {
+        csv.required.set(false)
+        html.required.set(true)
+        xml.required.set(true)
+    }
+}
+
+val jacocoTestReport = tasks.create("jacocoTestReport")
+
+androidComponents.onVariants { variant ->
+    val testTaskName = "test${variant.name.capitalize()}UnitTest"
+    val reportTask = tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
+        dependsOn(testTaskName)
+
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+
+        classDirectories.setFrom(
+            fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
+                exclude(listOf(
+                    // Android
+                    "**/R.class",
+                    "**/R\$*.class",
+                    "**/BuildConfig.*",
+                    "**/Manifest*.*",
+                ))
+            },
+        )
+
+        sourceDirectories.setFrom(files("$projectDir/src/main/java", "$projectDir/src/main/kotlin"))
+        executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
+    }
+    jacocoTestReport.dependsOn(reportTask)
 }

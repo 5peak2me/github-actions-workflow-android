@@ -9,4 +9,5 @@ plugins {
 
 subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
+    apply(plugin = "jacoco")
 }
