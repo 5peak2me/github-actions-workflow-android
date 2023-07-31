@@ -10,23 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.5.0
-      - name: Run spotless
-        run: ./gradlew spotlessCheck --scan --stacktrace
-      - name: Upload results Artifact
-        uses: actions/upload-artifact@v3.1.2
-        if: failure()
-        with:
-          name: detekt-report
-          path: |
-            **/build/reports/detekt/**/*
-          if-no-files-found: error
+      - name: Run spotless Task
+        run: ./gradlew spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache --scan --stacktrace
 
   detekt:
     name: detekt
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.5.0
-      - name: Run detekt
+      - name: Run detekt Task
         uses: gradle/gradle-build-action@v2
         with:
           cache-read-only: true
@@ -51,7 +43,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Run lint
+      - name: Run lint Task
         uses: gradle/gradle-build-action@v2
         with:
           arguments: |
