@@ -20,7 +20,6 @@ jobs:
 #          cache-read-only: true
 #          gradle-home-cache-cleanup: true
           arguments: spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache --scan --stacktrace
-#        run: ./gradlew spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache --scan --stacktrace
 
   detekt:
     name: detekt
@@ -37,7 +36,6 @@ jobs:
 #          cache-read-only: true
 #          gradle-home-cache-cleanup: true
           arguments: detekt --scan --stacktrace
-#        run: ./gradlew detekt --scan --stacktrace
       - name: Upload results Artifact
         uses: actions/upload-artifact@v3.1.2
         if: failure()
