@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   testenv:
-  - run: echo "Deploying to production server on branch ${{ <context> }}"
+    - run: echo "Deploying to production server on branch ${{ <context> }}"
 #  analysis:
 #    uses: 5peak2me/github-actions-workflow-android/.github/workflows/analysis.yml@main
 #
