@@ -62,10 +62,10 @@ jobs:
         with:
           cache-read-only: true
           gradle-home-cache-cleanup: true
-          arguments: :agp-convention:build -s --scan
+          arguments: aDebug --stacktrace --scan
 
-#      - name: Upload build reports
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: build-reports
-#          path: build/reports/
+      - name: Upload build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: app/build/outputs/apk/debug
