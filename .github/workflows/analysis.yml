@@ -15,7 +15,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Run spotless Task
-        run: ./gradlew spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache --scan --stacktrace
+        uses: gradle/gradle-build-action@v2
+        with:
+#          cache-read-only: true
+#          gradle-home-cache-cleanup: true
+          arguments: spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache --scan --stacktrace
+#        run: ./gradlew spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache --scan --stacktrace
 
   detekt:
     name: detekt
@@ -29,8 +34,8 @@ jobs:
       - name: Run detekt Task
         uses: gradle/gradle-build-action@v2
         with:
-          cache-read-only: true
-          gradle-home-cache-cleanup: true
+#          cache-read-only: true
+#          gradle-home-cache-cleanup: true
           arguments: detekt --scan --stacktrace
 #        run: ./gradlew detekt --scan --stacktrace
       - name: Upload results Artifact
@@ -54,8 +59,8 @@ jobs:
       - name: Run lint Task
         uses: gradle/gradle-build-action@v2
         with:
-          cache-read-only: true
-          gradle-home-cache-cleanup: true
+#          cache-read-only: true
+#          gradle-home-cache-cleanup: true
           arguments: |
             app:lintRelease
             --stacktrace
