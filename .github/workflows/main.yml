@@ -1,0 +1,24 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analysis:
+    uses: 5peak2me/github-actions-workflow-android/.github/workflows/analysis.yml@main
+
+  test:
+    needs: [ analysis ]
+    uses: 5peak2me/github-actions-workflow-android/.github/workflows/test.yml@main
+
+  build:
+    needs: [ analysis, test ]
+    uses: 5peak2me/github-actions-workflow-android/.github/workflows/build.yml@main
