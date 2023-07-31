@@ -18,7 +18,7 @@ jobs:
     steps:
       - run: echo "Deploying to production server on branch ${{ github.repository }}"
   analysis:
-    uses: ./.github/workflows/analysis
+    uses: ./.github/workflows/analysis.yml
 
 #  test:
 #    needs: [ analysis ]
