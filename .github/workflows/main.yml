@@ -20,10 +20,10 @@ jobs:
   analysis:
     uses: ./.github/workflows/analysis.yml
 
-#  test:
-#    needs: [ analysis ]
-#    uses: 5peak2me/github-actions-workflow-android/.github/workflows/test.yml@main
-#
-#  build:
-#    needs: [ analysis, test ]
-#    uses: 5peak2me/github-actions-workflow-android/.github/workflows/build.yml@main
+  test:
+    needs: [ analysis ]
+    uses: ./.github/workflows/test.yml
+
+  build:
+    needs: [ analysis, test ]
+    uses: ./.github/workflows/build.yml
