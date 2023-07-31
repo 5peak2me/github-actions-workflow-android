@@ -12,11 +12,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  prod-check:
-    if: ${{ github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Deploying to production server on branch ${{ github.repository }}"
   analysis:
     uses: ./.github/workflows/analysis.yml
 
