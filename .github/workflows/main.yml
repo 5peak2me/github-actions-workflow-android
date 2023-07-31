@@ -12,8 +12,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  testenv:
-    - run: echo "Deploying to production server on branch ${{ <context> }}"
+  prod-check:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying to production server on branch ${{ github.repository }}"
 #  analysis:
 #    uses: 5peak2me/github-actions-workflow-android/.github/workflows/analysis.yml@main
 #
