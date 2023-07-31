@@ -3,10 +3,6 @@ name: Build
 on:
   workflow_call:
 
-concurrency:
-  group: build-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: macos-latest
