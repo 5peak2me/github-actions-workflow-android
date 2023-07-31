@@ -6,3 +6,7 @@ plugins {
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.spotless)
 }
+
+subprojects {
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+}
